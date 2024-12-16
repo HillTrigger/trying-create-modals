@@ -1,0 +1,19 @@
+@use "@/styles/color";
+@use "@/styles/fonts";
+
+* {
+  font-weight: 500;
+  color: color.$text-primary;
+  font-family: fonts.$Roboto;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}

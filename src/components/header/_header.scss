@@ -1,0 +1,7 @@
+@use "@/styles/color";
+
+.header {
+  &__title {
+    color: color.$text-primary;
+  }
+}

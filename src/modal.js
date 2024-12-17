@@ -1,8 +1,13 @@
-import { videoModalSample } from "./components/modals/video-modal/video-modal";
+import { createVideoModal } from "./components/modals/video-modal/createVideoModal";
 
 window.Modal = {
+  _openCallBack: {},
+  _closeCallBack: {},
   open(id) {
     const modal = document.getElementById(id);
+    if (this._openCallBack[id]) {
+      this._openCallBack[id].apply(this);
+    }
     modal.classList.remove("hidden");
   },
   close(id) {
@@ -22,6 +27,11 @@ window.Modal = {
     console.log(`Закрыто ${counter} модалок`);
   },
   initAll: () => initModals(),
+  // setOpenCallback(id, func) {
+  //   const modal = document.getElementById(id);
+  //   this._openCallBack[id] = func;
+  // },
+  // setCloseCallback() {},
 };
 
 document.addEventListener("DOMContentLoaded", initModals);
@@ -34,28 +44,8 @@ function initModals() {
     const ID = trigger.dataset.modal;
 
     if (ID.startsWith("video")) {
-      if (document.getElementById(ID)) {
-        console.log(ID, " уже существует");
-        return;
-      }
-
-      const SRC = trigger.dataset.src;
-
-      let videoModal = document.createElement("div");
-      videoModal.className = `video-modal hidden`;
-      videoModal.id = ID;
-      videoModal.innerHTML = videoModalSample(SRC);
-
-      const btnClose = videoModal.querySelector(".video-modal__btn-close");
-
-      trigger.addEventListener("click", () => {
-        videoModal.classList.remove("hidden");
-      });
-
-      btnClose.addEventListener("click", () => {
-        videoModal.classList.add("hidden");
-      });
-
+      let videoModal = createVideoModal(trigger);
+      if (!videoModal) return;
       modalsContainer.append(videoModal);
     }
   });

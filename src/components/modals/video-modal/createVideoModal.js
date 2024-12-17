@@ -18,11 +18,13 @@ export function createVideoModal(trigger) {
   const btnClose = videoModal.querySelector(".video-modal__btn-close");
 
   trigger.addEventListener("click", () => {
-    videoModal.classList.remove("hidden");
+    window.Modal.open(ID);
+    // videoModal.classList.remove("hidden");
   });
 
   btnClose.addEventListener("click", () => {
-    videoModal.classList.add("hidden");
+    window.Modal.close(ID);
+    // videoModal.classList.add("hidden");
   });
 
   window.Modal[ID] = videoModal; // Сохраняем ссылку на модалку в глобальную переменную переменную

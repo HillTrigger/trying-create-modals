@@ -12,6 +12,9 @@ window.Modal = {
   },
   close(id) {
     const modal = document.getElementById(id);
+    if (this._closeCallBack[id]) {
+      this._closeCallBack[id].apply(this);
+    }
     modal.classList.add("hidden");
   },
   closeAll() {
@@ -27,10 +30,14 @@ window.Modal = {
     console.log(`Закрыто ${counter} модалок`);
   },
   initAll: () => initModals(),
-  // setOpenCallback(id, func) {
-  //   const modal = document.getElementById(id);
-  //   this._openCallBack[id] = func;
-  // },
+  setOpenCallback(id, func) {
+    const modal = document.getElementById(id);
+    this._openCallBack[id] = func;
+  },
+  setCloseCallback(id, func) {
+    const modal = document.getElementById(id);
+    this._closeCallBack[id] = func;
+  },
   // setCloseCallback() {},
 };
 
